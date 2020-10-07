@@ -522,6 +522,8 @@ def get_price_nice_raw():
     rot_per_eth_7d = 0.0  # float(json_resp_uni['data']['t1']['derivedETH'])
     rot_per_eth_1d = 0.0  # float(json_resp_uni['data']['t2']['derivedETH'])
     rot_per_eth_now = float(json_resp_uni['data']['tnow']['derivedETH'])
+
+    print("rot eth now: " + str(rot_per_eth_now))
     eth_price_7d = float(json_resp_uni['data']['b1']['ethPrice'])
     eth_price_1d = float(json_resp_uni['data']['b2']['ethPrice'])
     eth_price_now = float(json_resp_uni['data']['bnow']['ethPrice'])
@@ -529,6 +531,7 @@ def get_price_nice_raw():
     rot_price_7d_usd = 0.0  # rot_per_eth_7d * eth_price_7d
     rot_price_1d_usd = 0.0  # rot_per_eth_1d * eth_price_1d
     rot_price_now_usd = rot_per_eth_now * eth_price_now
+    print("rot_price_now_usd: " + str(rot_price_now_usd))
 
     return (rot_per_eth_7d, rot_price_7d_usd, rot_per_eth_1d, rot_price_1d_usd, rot_per_eth_now, rot_price_now_usd)
 
@@ -961,4 +964,3 @@ chart - Display a (simple) price chart
 chartsupply - Display a graph of the supply cap
 candlestick - Candlestick chart 
 """
-

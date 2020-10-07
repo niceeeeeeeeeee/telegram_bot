@@ -203,7 +203,6 @@ def get_supply_cap_raw(contract_addr):
     base_addr = 'https://api.etherscan.io/api?module=stats&action=tokensupply&contractaddress=' + contract_addr + '&apikey=' + etherscan_api_key
     decimals = 1000000000000000000
     supply_cap = float(requests.post(base_addr).json()['result']) / decimals
-    print("supply cap: " + str(supply_cap))
     return supply_cap
 
 
@@ -525,7 +524,6 @@ def get_price_nice_raw():
     rot_per_eth_1d = 0.0  # float(json_resp_uni['data']['t2']['derivedETH'])
     rot_per_eth_now = float(json_resp_uni['data']['tnow']['derivedETH'])
 
-    print("rot eth now: " + str(rot_per_eth_now))
     eth_price_7d = float(json_resp_uni['data']['b1']['ethPrice'])
     eth_price_1d = float(json_resp_uni['data']['b2']['ethPrice'])
     eth_price_now = float(json_resp_uni['data']['bnow']['ethPrice'])
@@ -533,7 +531,6 @@ def get_price_nice_raw():
     rot_price_7d_usd = 0.0  # rot_per_eth_7d * eth_price_7d
     rot_price_1d_usd = 0.0  # rot_per_eth_1d * eth_price_1d
     rot_price_now_usd = rot_per_eth_now * eth_price_now
-    print("rot_price_now_usd: " + str(rot_price_now_usd))
 
     return (rot_per_eth_7d, rot_price_7d_usd, rot_per_eth_1d, rot_price_1d_usd, rot_per_eth_now, rot_price_now_usd)
 
@@ -551,6 +548,7 @@ def get_ratio_rot_per_maggot(last_swaps_maggot_rot_pair):
         return last_swaps_amount_rot_out / last_swaps_amount_maggot_in
     else:
         return last_swaps_amount_rot_in / last_swaps_amount_maggot_out
+
 
 # return price 7 days ago, price 1 day ago, volume last 24h
 def get_volume_24h_nice():
@@ -963,7 +961,7 @@ def main():
     dp.add_handler(CommandHandler('delete_meme_secret', delete_meme))
     dp.add_handler(CommandHandler('candlestick', get_candlestick_pyplot))
     # dp.add_handler(CommandHandler('airdropinfo', get_airdrop))
-    dp.add_handler(MessageHandler(Filters.text, check_message_david))
+    dp.add_handler(MessageHandler(Filters.text, check_message_david, pass_job_queue=True))
     RepeatedTimer(15, log_current_price_rot_per_usd)
     RepeatedTimer(60, log_current_supply)
     updater.start_polling()

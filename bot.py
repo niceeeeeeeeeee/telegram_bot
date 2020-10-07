@@ -572,12 +572,12 @@ def get_price_nice(update: Update, context: CallbackContext):
      rot_price_now_usd) = get_price_nice_raw()
 
     supply_cap_rot = get_supply_cap_raw(nice_contract)
-    supply_cat_pretty = number_to_beautiful(supply_cap_rot)
+    supply_cat_pretty = str(supply_cap_rot)
     market_cap = number_to_beautiful(int(float(supply_cap_rot) * rot_price_now_usd))
 
     vol_24h = get_volume_24h_nice()
-    var_7d = int(((rot_price_now_usd - rot_price_7d_usd) / rot_price_now_usd) * 100)
-    var_1d = int(((rot_price_now_usd - rot_price_1d_usd) / rot_price_now_usd) * 100)
+    var_7d = 0  # int(((rot_price_now_usd - rot_price_7d_usd) / rot_price_now_usd) * 100)
+    var_1d = 0  # int(((rot_price_now_usd - rot_price_1d_usd) / rot_price_now_usd) * 100)
 
     var_7d_str = "+" + str(var_7d) + "%" if var_7d > 0 else str(var_7d) + "%"
     var_1d_str = "+" + str(var_1d) + "%" if var_1d > 0 else str(var_1d) + "%"

@@ -26,14 +26,14 @@ import plotly.graph_objects as go
 import pprint
 
 # ENV FILES
-TELEGRAM_KEY = os.environ.get('TELEGRAM_KEY')
+TELEGRAM_KEY = os.environ.get('NICE_TELEGRAM_KEY')
 etherscan_api_key = os.environ.get('ETH_API_KEY')
 APP_KEY = os.environ.get('TWITTER_API_KEY')
 APP_SECRET = os.environ.get('TWITTER_API_KEY_SECRET')
 ACCESS_TOKEN = os.environ.get('TWITTER_ACCESS_TOKEN')
 ACCESS_SECRET_TOKEN = os.environ.get('TWITTER_ACCESS_TOKEN_SECRET')
-MEME_GIT_REPO = os.environ.get('MEME_GIT_REPO')
-TMP_FOLDER = os.environ.get('TMP_MEME_FOLDER')
+MEME_GIT_REPO = os.environ.get('NICE_MEME_GIT_REPO')
+TMP_FOLDER = os.environ.get('NICE_TMP_MEME_FOLDER')
 BASE_PATH = os.environ.get('BASE_PATH')
 
 ethexplorer_holder_base_url = "https://ethplorer.io/service/service.php?data="

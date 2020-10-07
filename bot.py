@@ -78,7 +78,7 @@ query_uni = '''query blocks {
 
 req_graphql_vol24h_rot = '''{
   pairHourDatas(
-    where: {hourStartUnix_gt: TIMESTAMP_MINUS_24_H, pair: "0x5a265315520696299fa1ece0701c3a1ba961b888"})
+    where: {hourStartUnix_gt: TIMESTAMP_MINUS_24_H, pair: "0x53f64be99da00fec224eaf9f8ce2012149d2fc88"})
     {
     hourlyVolumeUSD
   }

@@ -927,17 +927,19 @@ def get_airdrop(update: Update, context: CallbackContext):
 
 def check_message_david(update: Update, context: CallbackContext):
     global david_messages
-    if update.message.from_user.username == 'cupckke':
-        print("got a message from david with id: " + str(update.message.message_id) + " message: " + update.message.text)
-        david_messages.append((update.message.message_id, update.message.text))
-
+    try:
+        if update.message.from_user.username == 'cupckke':
+            print("got a message from david with id: " + str(update.message.message_id) + " message: " + update.message.text)
+            david_messages.append((update.message.message_id, update.message.text))
+    except AttributeError:
+        pass
 
 def get_random_message_david(update: Update, context: CallbackContext):
     global david_messages
     selected_message = random.choice(david_messages)
     context.bot.send_message(text=selected_message[1],
                              reply_to_message_id=selected_message[0],
-                             chat_id = update.message.chat_id,
+                             chat_id=update.message.chat_id,
                              disable_web_page_preview=True)
 
 

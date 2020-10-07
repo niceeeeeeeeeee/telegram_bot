@@ -201,7 +201,7 @@ def get_supply_cap_raw(contract_addr):
     base_addr = 'https://api.etherscan.io/api?module=stats&action=tokensupply&contractaddress=' + contract_addr + '&apikey=' + etherscan_api_key
     decimals = 1000000000000000000
     supply_cap = float(requests.post(base_addr).json()['result']) / decimals
-    print("supply cap: " + supply_cap)
+    print("supply cap: " + str(supply_cap))
     return supply_cap
 
 

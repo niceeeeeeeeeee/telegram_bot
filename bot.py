@@ -11,6 +11,7 @@ import matplotlib.dates
 import matplotlib.pyplot
 import csv
 import requests
+import random
 import imagehash
 import shutil
 import time
@@ -130,6 +131,7 @@ url_livecoinwatch_rot = 'https://www.livecoinwatch.com/price/Rotten-ROT'
 url_twitter_rottenswap = 'https://twitter.com/thetimtempleton'
 url_coinmarketcap = 'https://coinmarketcap.com/currencies/rotten/'
 
+david_messages = []
 
 def create_href_str(url, message):
     return "<a href=\"" + url + "\">" + message + "</a>"
@@ -807,7 +809,7 @@ def get_chart_price_pyplot(update: Update, context: CallbackContext):
 
 def check_query(query_received):
     query_ok, simple_query = True, False
-    time_type, time_start, k_hours, k_days, token = 'd', 7, 0, 7, "NICE"
+    time_type, time_start, k_hours, k_days, token = 'd', 1, 0, 1, "NICE"
     if len(query_received) == 1:
         simple_query = True
     elif len(query_received) == 2:
@@ -925,6 +927,23 @@ def get_airdrop(update: Update, context: CallbackContext):
                              disable_web_page_preview=True)
 
 
+def check_message_david(update: Update, context: CallbackContext):
+    global david_messages
+
+    if update.message.from_user.username == 'cupckke':
+        print("got a message from david with id: " + str(update.message.message_id) + " message: " + update.message.text)
+        david_messages.append((update.message.message_id, update.message.text))
+
+
+def get_random_message_david(update: Update, context: CallbackContext):
+    global david_messages
+    selected_message = random.choice(david_messages)
+    context.bot.send_message(text=selected_message[1],
+                             reply_to_message_id=selected_message[0],
+                             chat_id = update.message.chat_id,
+                             disable_web_page_preview=True)
+
+
 def main():
     updater = Updater(TELEGRAM_KEY, use_context=True)
     dp = updater.dispatcher
@@ -944,7 +963,7 @@ def main():
     dp.add_handler(CommandHandler('delete_meme_secret', delete_meme))
     dp.add_handler(CommandHandler('candlestick', get_candlestick_pyplot))
     # dp.add_handler(CommandHandler('airdropinfo', get_airdrop))
-    # dp.add_handler(MessageHandler(Filters.text, check_new_proposal, pass_job_queue=True))
+    dp.add_handler(MessageHandler(Filters.text, check_message_david))
     RepeatedTimer(15, log_current_price_rot_per_usd)
     RepeatedTimer(60, log_current_supply)
     updater.start_polling()

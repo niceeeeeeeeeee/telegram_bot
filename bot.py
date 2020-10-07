@@ -925,7 +925,7 @@ def get_airdrop(update: Update, context: CallbackContext):
                              disable_web_page_preview=True)
 
 
-def check_message_david(update: Update):
+def check_message_david(update: Update, context: CallbackContext):
     global david_messages
     print("message from: " + str(update.message.from_user.username))
     if update.message.from_user.username == 'cupckke' or '@cupckke':

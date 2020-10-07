@@ -799,7 +799,7 @@ def get_chart_price_pyplot(update: Update, context: CallbackContext):
                                    parse_mode="html")
         else:
             context.bot.send_message(chat_id=chat_id,
-                                     text="Displaying charts only once every minute. Don't abuse this function")
+                                     text="Displaying charts only once every minute. Don't abuse this NICE function")
     else:
         context.bot.send_message(chat_id=chat_id,
                                  text="Request badly formated. Please use /getchart time type (example: /getchart 3 h for the last 3h time range). Simply editing your message will not work, please send a new correctly formated message.")

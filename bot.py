@@ -887,10 +887,10 @@ def get_chart_supply_pyplot(update: Update, context: CallbackContext):
                                now - strp_date(x[0]) < timedelta(days=k_days, hours=k_hours)]
 
             dates_pure = keep_dates(filtered_values)
-            supply_rot = [int(value[1]) for value in filtered_values]
+            supply_rot = [float(value[1]) for value in filtered_values]
 
             print_chart_supply(dates_pure, supply_rot)
-            current_rot_str = number_to_beautiful(supply_rot[-1])
+            current_rot_str = str(supply_rot[-1])
             if simple_query:
                 caption = "Chart since the bot starting logging the supply.\nCurrent supply: \n<b>NICE:</b> <pre>" + current_rot_str + "</pre>"
             else:
@@ -961,3 +961,4 @@ chart - Display a (simple) price chart
 chartsupply - Display a graph of the supply cap
 candlestick - Candlestick chart 
 """
+

@@ -175,7 +175,7 @@ def format_tweet(tweet):
 
 # scraps the github project to get those sweet memes. Will chose one randomly and send it.
 def get_url_meme():
-    contents = requests.get("https://api.github.com/repos/rottenswap/memes/contents/memesFolder").json()
+    contents = requests.get("https://api.github.com/repos/niceeeeeeeeeee/memes/contents/memesFolder").json()
     potential_memes = []
     for file in contents:
         if ('png' in file['name'] or 'jpg' in file['name'] or 'jpeg' in file['name'] or 'mp4' in file['name']):

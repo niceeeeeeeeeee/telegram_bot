@@ -88,11 +88,11 @@ graphql_client_uni_2 = GraphQLClient('https://api.thegraph.com/subgraphs/name/un
 graphql_client_eth = GraphQLClient('https://api.thegraph.com/subgraphs/name/blocklytics/ethereum-blocks')
 
 # log_file
-price_file_path = BASE_PATH + 'rot/log_files/price_hist.txt'
-supply_file_path = BASE_PATH + 'rot/log_files/supply_hist.txt'
-chart_price_file_path = BASE_PATH + 'rot/log_files/chart_price.png'
-chart_supply_file_path = BASE_PATH + 'rot/log_files/chart_supply.png'
-candels_file_path = BASE_PATH + 'rot/log_files/chart_candles.png'
+price_file_path = BASE_PATH + 'nice/log_files/price_hist.txt'
+supply_file_path = BASE_PATH + 'nice/log_files/supply_hist.txt'
+chart_price_file_path = BASE_PATH + 'nice/log_files/chart_price.png'
+chart_supply_file_path = BASE_PATH + 'nice/log_files/chart_supply.png'
+candels_file_path = BASE_PATH + 'nice/log_files/chart_candles.png'
 
 locale.setlocale(locale.LC_ALL, 'en_US')
 
@@ -477,7 +477,7 @@ def get_number_holder_token(token):
 
 # graphql queries
 
-def get_price_rot_nice():
+def get_price_nice_raw():
     now = int(time.time())
 
     before_7d = now - 3600 * 24 * 7
@@ -568,7 +568,7 @@ def get_volume_24h_nice():
 
 def get_price_nice(update: Update, context: CallbackContext):
     (derivedETH_7d, rot_price_7d_usd, derivedETH_1d, rot_price_1d_usd, derivedETH_now,
-     rot_price_now_usd) = get_price_rot_nice()
+     rot_price_now_usd) = get_price_nice_raw()
 
     supply_cap_rot = get_supply_cap_raw(nice_contract)
     supply_cat_pretty = number_to_beautiful(supply_cap_rot)
@@ -585,7 +585,7 @@ def get_price_nice(update: Update, context: CallbackContext):
 
     holders = get_number_holder_token(nice_contract)
 
-    message = "<code>(ROT) RottenToken" \
+    message = "<code>(NICE) NiceToken" \
               + "\nETH: Ξ" + str(derivedETH_now)[0:10] \
               + "\nUSD: $" + str(rot_price_now_usd)[0:10] \
               + "\n24H:  " + var_1d_str \
@@ -602,7 +602,7 @@ def get_price_nice(update: Update, context: CallbackContext):
 def log_current_price_rot_per_usd():
     global price_file_path
     (derivedETH_7d, rot_price_7d_usd, derivedETH_1d, rot_price_1d_usd, derivedETH_now,
-     rot_price_now_usd) = get_price_rot_nice()
+     rot_price_now_usd) = get_price_nice_raw()
     with open(price_file_path, "a") as price_file:
         time_now = datetime.now()
         date_time_str = time_now.strftime("%m/%d/%Y,%H:%M:%S")
@@ -953,8 +953,8 @@ if __name__ == '__main__':
 commands = """
 nice - Display some $NICE price
 niceme - Give me a random meme
-nicefarmingguide - Guide to $ROT farming
-supplycap - How ROTTED are we
+nicefarmingguide - Guide to farming with tegrity
+supplycap - How NICE are we
 add_meme - Add a meme to the common memes folder
 chart - Display a (simple) price chart
 chartsupply - Display a graph of the supply cap

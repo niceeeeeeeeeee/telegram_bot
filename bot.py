@@ -54,12 +54,12 @@ query_eth = '''query blocks {
 }'''
 
 query_uni = '''query blocks {
-    t1: token(id: "CONTRACT", block: {number: NUMBER_T1}) {
-        derivedETH
-    }
-    t2: token(id: "CONTRACT", block: {number: NUMBER_T2}) {
-        derivedETH
-    }
+    # t1: token(id: "CONTRACT", block: {number: NUMBER_T1}) {
+    #     derivedETH
+    # }
+    # t2: token(id: "CONTRACT", block: {number: NUMBER_T2}) {
+    #     derivedETH
+    # }
     tnow: token(id: "CONTRACT", block: {number: NUMBER_TNOW}) {
         derivedETH
     }
@@ -519,15 +519,15 @@ def get_price_nice_raw():
         json_resp_uni = json.loads(res_uni_query)
         rot_per_eth_7d = float(json_resp_uni['data']['t1']['derivedETH'])
 
-    # rot_per_eth_7d = float(json_resp_uni['data']['t1']['derivedETH'])
-    rot_per_eth_1d = float(json_resp_uni['data']['t2']['derivedETH'])
+    rot_per_eth_7d = 0.0  # float(json_resp_uni['data']['t1']['derivedETH'])
+    rot_per_eth_1d = 0.0  # float(json_resp_uni['data']['t2']['derivedETH'])
     rot_per_eth_now = float(json_resp_uni['data']['tnow']['derivedETH'])
     eth_price_7d = float(json_resp_uni['data']['b1']['ethPrice'])
     eth_price_1d = float(json_resp_uni['data']['b2']['ethPrice'])
     eth_price_now = float(json_resp_uni['data']['bnow']['ethPrice'])
 
-    rot_price_7d_usd = rot_per_eth_7d * eth_price_7d
-    rot_price_1d_usd = rot_per_eth_1d * eth_price_1d
+    rot_price_7d_usd = 0.0  # rot_per_eth_7d * eth_price_7d
+    rot_price_1d_usd = 0.0  # rot_per_eth_1d * eth_price_1d
     rot_price_now_usd = rot_per_eth_now * eth_price_now
 
     return (rot_per_eth_7d, rot_price_7d_usd, rot_per_eth_1d, rot_price_1d_usd, rot_per_eth_now, rot_price_now_usd)

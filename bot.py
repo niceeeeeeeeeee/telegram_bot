@@ -936,7 +936,7 @@ def check_message_david(update: Update, context: CallbackContext):
 
 
 def get_random_message_david(update: Update, context: CallbackContext):
-    global david_messages
+    print("coucou")
     selected_message = random.choice(david_messages)
     print("sending message from david: " + selected_message[1])
     context.bot.send_message(text=selected_message[1],

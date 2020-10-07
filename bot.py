@@ -54,12 +54,12 @@ query_eth = '''query blocks {
 }'''
 
 query_uni = '''query blocks {
-    # t1: token(id: "CONTRACT", block: {number: NUMBER_T1}) {
-    #     derivedETH
-    # }
-    # t2: token(id: "CONTRACT", block: {number: NUMBER_T2}) {
-    #     derivedETH
-    # }
+    t1: token(id: "CONTRACT", block: {number: NUMBER_T1}) {
+        derivedETH
+    }
+    t2: token(id: "CONTRACT", block: {number: NUMBER_T2}) {
+        derivedETH
+    }
     tnow: token(id: "CONTRACT", block: {number: NUMBER_TNOW}) {
         derivedETH
     }

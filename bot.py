@@ -120,11 +120,11 @@ nice_contract_formatted_uni = "0x53f64be99da00fec224eaf9f8ce2012149d2fc88"
 # messages
 
 url_website = 'niceee.org'
-url_uniswap_rot = 'https://app.uniswap.org/#/swap?inputCurrency=0xd04785c4d8195e4a54d9dec3a9043872875ae9e2'
-url_uniswap_pool_rot_eht = 'https://app.uniswap.org/#/add/ETH/0xD04785C4d8195e4A54d9dEc3a9043872875ae9E2'
-url_etherscan_rot = 'https://etherscan.io/token/0xd04785c4d8195e4a54d9dec3a9043872875ae9e2'
-url_astrotools_rot = 'https://app.astrotools.io/pair-explorer/0x5a265315520696299fa1ece0701c3a1ba961b888'
-url_dextools_rot = 'https://www.dextools.io/app/uniswap/pair-explorer/0x5a265315520696299fa1ece0701c3a1ba961b888'
+url_uniswap_nice = 'https://app.uniswap.org/#/swap?inputCurrency=0x53f64be99da00fec224eaf9f8ce2012149d2fc88'
+url_uniswap_pool_nice_eht = 'https://app.uniswap.org/#/add/ETH/0xD04785C4d8195e4A54d9dEc3a9043872875ae9E2'
+url_etherscan_rot = 'https://etherscan.io/token/0x53f64be99da00fec224eaf9f8ce2012149d2fc88'
+url_astrotools_rot = 'https://app.astrotools.io/pair-explorer/0x53f64be99da00fec224eaf9f8ce2012149d2fc88'
+url_dextools_rot = 'https://www.dextools.io/app/uniswap/pair-explorer/0x53f64be99da00fec224eaf9f8ce2012149d2fc88'
 url_coingecko_rot = 'https://www.coingecko.com/en/coins/rotten'
 url_livecoinwatch_rot = 'https://www.livecoinwatch.com/price/Rotten-ROT'
 url_twitter_rottenswap = 'https://twitter.com/thetimtempleton'
@@ -136,15 +136,15 @@ def create_href_str(url, message):
 
 
 links = '<b>Website:</b> ' + create_href_str(url_website, 'rottenswap.org') + '\n' \
-        + '<b>Uniswap:</b> ' + create_href_str(url_uniswap_rot, "$ROT") + '\n' \
-        + '<b>Pools:</b> ' + create_href_str(url_uniswap_pool_rot_eht, 'ROT-ETH') + ' ' + '\n' \
+        + '<b>Uniswap:</b> ' + create_href_str(url_uniswap_nice, "$ROT") + '\n' \
+        + '<b>Pools:</b> ' + create_href_str(url_uniswap_pool_nice_eht, 'ROT-ETH') + ' ' + '\n' \
         + '<b>Etherscan:</b> ' + create_href_str(url_etherscan_rot, '$ROT') + " " +  '\n' \
         + '<b>Charts:</b> ' + create_href_str(url_astrotools_rot, 'Astrotools') + ' ' + create_href_str(
     url_dextools_rot, 'DexTools') + ' ' \
         + create_href_str(url_coingecko_rot, 'CoinGecko') + ' ' + create_href_str(url_livecoinwatch_rot,
                                                                                   'LiveCoinWatch') + ' ' + create_href_str(
     url_coinmarketcap, 'CoinMarketCap') + '\n' \
-        + '<b>Social medias: </b>' + create_href_str(url_twitter_rottenswap, 'Twitter') +  '\n' \
+        + '<b>Social medias: </b>' + create_href_str(url_twitter_rottenswap, 'Twitter') + '\n' \
 
 # GIT INIT
 repo = Repo(MEME_GIT_REPO)

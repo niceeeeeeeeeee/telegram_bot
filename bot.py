@@ -94,6 +94,7 @@ supply_file_path = BASE_PATH + 'nice/log_files/supply_hist.txt'
 chart_price_file_path = BASE_PATH + 'nice/log_files/chart_price.png'
 chart_supply_file_path = BASE_PATH + 'nice/log_files/chart_supply.png'
 candels_file_path = BASE_PATH + 'nice/log_files/chart_candles.png'
+david_logs_file_path = BASE_PATH + 'nice/log_files/david_logs.txt'
 
 locale.setlocale(locale.LC_ALL, 'en_US')
 
@@ -131,7 +132,6 @@ url_livecoinwatch_rot = 'https://www.livecoinwatch.com/price/Rotten-ROT'
 url_twitter_rottenswap = 'https://twitter.com/thetimtempleton'
 url_coinmarketcap = 'https://coinmarketcap.com/currencies/rotten/'
 
-david_messages = []
 
 def create_href_str(url, message):
     return "<a href=\"" + url + "\">" + message + "</a>"
@@ -926,16 +926,22 @@ def get_airdrop(update: Update, context: CallbackContext):
 
 
 def check_message_david(update: Update, context: CallbackContext):
-    global david_messages
     try:
         if update.message.from_user.username == 'cupckke':
-            david_messages.append((update.message.message_id, update.message.text))
+            with open(david_logs_file_path, "a") as price_file:
+                message_to_write = str(update.message.message_id) + "///))()" + str(update.message.text).replace("\n", " ") + "\n"
+                price_file.write(message_to_write)
     except AttributeError:
         pass
 
 
 def get_random_message_david(update: Update, context: CallbackContext):
-    selected_message = random.choice(david_messages)
+    david_msgs = []
+    with open(supply_file_path, newline='') as csvfile:
+        spamreader = csv.reader(csvfile, delimiter='///))()', quotechar='|')
+        for row in spamreader:
+            david_msgs.append((row[0], row[1]))
+    selected_message = random.choice(david_msgs)
     context.bot.send_message(text=selected_message[1],
                              reply_to_message_id=selected_message[0],
                              chat_id=update.message.chat_id,

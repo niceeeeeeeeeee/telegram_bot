@@ -506,7 +506,7 @@ def get_price_nice_raw():
     # pprint.pprint(json_resp_uni)
 
     try:
-        rot_per_eth_7d = float(json_resp_uni['data']['t1']['derivedETH'])
+        rot_per_eth_now = float(json_resp_uni['data']['tnow']['derivedETH'])
     except KeyError:  # trying again, as sometimes the block that we query has not yet been indexed. For that, we read
         # the error message returned by uniswap and work on the last indexed block that is return in the error message
         # TODO: work with regex as block numbers can be < 10000000
@@ -517,7 +517,7 @@ def get_price_nice_raw():
             .replace("NUMBER_TNOW", str(last_block_indexed))
         res_uni_query = graphql_client_uni.execute(query_uni_updated)
         json_resp_uni = json.loads(res_uni_query)
-        rot_per_eth_7d = float(json_resp_uni['data']['t1']['derivedETH'])
+        rot_per_eth_now = float(json_resp_uni['data']['tnow']['derivedETH'])
 
     rot_per_eth_7d = 0.0  # float(json_resp_uni['data']['t1']['derivedETH'])
     rot_per_eth_1d = 0.0  # float(json_resp_uni['data']['t2']['derivedETH'])

@@ -929,16 +929,13 @@ def check_message_david(update: Update, context: CallbackContext):
     global david_messages
     try:
         if update.message.from_user.username == 'cupckke':
-            print("got a message from david with id: " + str(update.message.message_id) + " message: " + update.message.text)
             david_messages.append((update.message.message_id, update.message.text))
     except AttributeError:
         pass
 
 
 def get_random_message_david(update: Update, context: CallbackContext):
-    print("coucou")
     selected_message = random.choice(david_messages)
-    print("sending message from david: " + selected_message[1])
     context.bot.send_message(text=selected_message[1],
                              reply_to_message_id=selected_message[0],
                              chat_id=update.message.chat_id,

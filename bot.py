@@ -925,7 +925,7 @@ def get_airdrop(update: Update, context: CallbackContext):
                              disable_web_page_preview=True)
 
 
-def check_message_david(update: Update, context: CallbackContext):
+def check_message_david(update: Update):
     global david_messages
     print("message from: " + str(update.message.from_user.username))
     if update.message.from_user.username == 'cupckke' or '@cupckke':
@@ -961,7 +961,8 @@ def main():
     dp.add_handler(CommandHandler('delete_meme_secret', delete_meme))
     dp.add_handler(CommandHandler('candlestick', get_candlestick_pyplot))
     # dp.add_handler(CommandHandler('airdropinfo', get_airdrop))
-    dp.add_handler(MessageHandler(Filters.text, check_message_david, pass_job_queue=True))
+    dp.add_handler(MessageHandler(Filters.text, check_message_david))
+    dp.add_handler(CommandHandler('david', get_random_message_david))
     RepeatedTimer(15, log_current_price_rot_per_usd)
     RepeatedTimer(60, log_current_supply)
     updater.start_polling()

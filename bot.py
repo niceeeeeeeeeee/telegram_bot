@@ -951,19 +951,12 @@ if __name__ == '__main__':
     main()
 
 commands = """
-rot - Display the $ROT price
-maggot - Display the $MAGGOT price
-help - Technical issues? A question? Need help?
-rotme - Give me a random meme
-links - Main links
-rotfarmingguide - Guide to $ROT farming
-howtoslippage - How to increase slippage
+nice - Display some $NICE price
+niceme - Give me a random meme
+nicefarmingguide - Guide to $ROT farming
 supplycap - How ROTTED are we
-biz - List biz thread
-twitter - List twitter threads
 add_meme - Add a meme to the common memes folder
 chart - Display a (simple) price chart
 chartsupply - Display a graph of the supply cap
 candlestick - Candlestick chart 
-airdropinfo - Info about the airdrop
 """

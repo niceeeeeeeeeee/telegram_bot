@@ -212,7 +212,7 @@ def number_to_beautiful(nbr):
 # Get the supply cache from etherscan. Uses the ETH_API_KEY passed as an env variable.
 def get_supply_cap(update: Update, context: CallbackContext):
     number_nice = number_to_beautiful(get_supply_cap_raw(nice_contract))
-    message = "It's <b>NICE</b> around here! There are <pre>" + str(number_nice) + "</pre> NICE <pre>"
+    message = "It's <b>NICE</b> around here! There are <pre>" + str(number_nice) + "</pre> NICE tokens"
     chat_id = update.message.chat_id
     context.bot.send_message(chat_id=chat_id, text=message, parse_mode='html')
 

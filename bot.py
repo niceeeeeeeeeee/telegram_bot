@@ -929,8 +929,8 @@ def get_airdrop(update: Update, context: CallbackContext):
 
 def check_message_david(update: Update, context: CallbackContext):
     global david_messages
-
-    if update.message.from_user.username == 'cupckke':
+    print("message from: " + str(update.message.from_user.username))
+    if update.message.from_user.username == 'cupckke' or '@cupckke':
         print("got a message from david with id: " + str(update.message.message_id) + " message: " + update.message.text)
         david_messages.append((update.message.message_id, update.message.text))
 

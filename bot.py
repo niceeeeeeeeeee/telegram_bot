@@ -937,10 +937,8 @@ def check_message_david(update: Update, context: CallbackContext):
 
 def get_random_message_david(update: Update, context: CallbackContext):
     david_msgs = []
-    with open(supply_file_path, newline='') as csvfile:
-        spamreader = csv.reader(csvfile, delimiter='///))()', quotechar='|')
-        for row in spamreader:
-            david_msgs.append((row[0], row[1]))
+    with open('filename') as f:
+        lines = [line.rstrip().split('///))()') for line in f]
     selected_message = random.choice(david_msgs)
     context.bot.send_message(text=selected_message[1],
                              reply_to_message_id=selected_message[0],

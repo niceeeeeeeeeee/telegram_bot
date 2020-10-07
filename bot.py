@@ -200,7 +200,8 @@ def how_to_slippage(update: Update, context: CallbackContext):
 def get_supply_cap_raw(contract_addr):
     base_addr = 'https://api.etherscan.io/api?module=stats&action=tokensupply&contractaddress=' + contract_addr + '&apikey=' + etherscan_api_key
     decimals = 1000000000000000000
-    supply_cap = round(int(requests.post(base_addr).json()['result']) / decimals)
+    supply_cap = float(requests.post(base_addr).json()['result']) / decimals
+    print("supply cap: " + supply_cap)
     return supply_cap
 
 
@@ -211,8 +212,8 @@ def number_to_beautiful(nbr):
 
 # Get the supply cache from etherscan. Uses the ETH_API_KEY passed as an env variable.
 def get_supply_cap(update: Update, context: CallbackContext):
-    number_nice = number_to_beautiful(get_supply_cap_raw(nice_contract))
-    message = "It's <b>NICE</b> around here! There are <pre>" + str(number_nice) + "</pre> NICE tokens"
+    number_nice = str(get_supply_cap_raw(nice_contract))
+    message = "It's <b>NICE</b> around here! There are <pre>" + number_nice + "</pre> NICE tokens"
     chat_id = update.message.chat_id
     context.bot.send_message(chat_id=chat_id, text=message, parse_mode='html')
 

@@ -990,6 +990,18 @@ def generate_random_david(update: Update, context: CallbackContext):
                              disable_web_page_preview=True)
 
 
+def generate_random_david_long(update: Update, context: CallbackContext):
+    with open(david_logs_file_path) as f:
+        msgs = [line.rstrip().split('///))()')[1] for line in f]
+    msg = ' '.join(msgs)
+    text_model = markovify.Text(msg)
+    res = text_model.make_sentence(None, min_words=100)
+    context.bot.send_message(text=res,
+                             chat_id=update.message.chat_id,
+                             disable_web_page_preview=True)
+
+
+
 def generate_random_all(update: Update, context: CallbackContext):
     with open(david_logs_file_path) as f:
         davids = [line.rstrip().split('///))()')[1] for line in f]
@@ -1000,8 +1012,8 @@ def generate_random_all(update: Update, context: CallbackContext):
     david_msg = ' '.join(davids)
     tim_msg = ' '.join(tims)
     schizo_msg = ' '.join(schizos)
-    all = tim_msg + david_msg + schizo_msg
-    text_model = markovify.Text(all)
+    all_mixed = tim_msg + david_msg + schizo_msg
+    text_model = markovify.Text(all_mixed)
     res = text_model.make_short_sentence(280)
     context.bot.send_message(text=res,
                              chat_id=update.message.chat_id,
@@ -1053,6 +1065,7 @@ def main():
     dp.add_handler(CommandHandler('tim', get_random_message_tim))
     dp.add_handler(CommandHandler('schizo', get_random_message_schizo))
     dp.add_handler(CommandHandler('generate_random_david', generate_random_david))
+    dp.add_handler(CommandHandler('generate_random_david_long', generate_random_david_long))
     dp.add_handler(CommandHandler('generate_random_david_tim_schizo', generate_random_all))
     dp.add_handler(CommandHandler('generate_random_all_stats', generate_random_all_stats))
     dp.add_handler(MessageHandler(Filters.text, check_message_david))

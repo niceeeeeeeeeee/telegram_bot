@@ -109,7 +109,7 @@ last_time_checked_price_supply = 0
 last_time_checked_4chan = 0
 last_time_checked_twitter = 0
 
-re_4chan = re.compile(r'^nice |nice$|niceee|niceeee|nicee')
+re_4chan = re.compile(r'/NICE+/')
 
 twitter = Twython(APP_KEY, APP_SECRET, ACCESS_TOKEN, ACCESS_SECRET_TOKEN)
 
@@ -324,9 +324,9 @@ def callback_timer(update: Update, context: CallbackContext):
 
 def query_tweets(easy=True):
     if easy:
-        return twitter.search(q='$ROT rottenswap')
+        return twitter.search(q='$NICE')
     else:
-        return twitter.search(q='$ROT')
+        return twitter.search(q='$NICE')
 
 
 def filter_tweets(all_tweets):
@@ -953,8 +953,8 @@ def main():
     dp.add_handler(CommandHandler('nicefarmingguide', stake_command))
     # dp.add_handler(CommandHandler('howtoslippage', how_to_slippage))
     dp.add_handler(CommandHandler('supplycap', get_supply_cap))
-    # dp.add_handler(CommandHandler('biz', get_biz))
-    # dp.add_handler(CommandHandler('twitter', get_last_tweets))
+    dp.add_handler(CommandHandler('biz', get_biz))
+    dp.add_handler(CommandHandler('twitter', get_last_tweets))
     dp.add_handler(MessageHandler(Filters.photo, handle_new_image))
     dp.add_handler(CommandHandler('nice', get_price_nice))
     # dp.add_handler(CommandHandler('help', get_help))

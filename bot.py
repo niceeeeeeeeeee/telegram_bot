@@ -978,7 +978,8 @@ def get_random_message_schizo(update: Update, context: CallbackContext):
 def generate_random_david(update: Update, context: CallbackContext):
     with open(david_logs_file_path) as f:
         msgs = [line.rstrip().split('///))()')[1].split() for line in f]
-    pprint.pprint(msgs)
+    all_words = [i for sub in msgs for i in sub]
+    pprint.pprint(all_words)
     # selected_message = random.choice(msgs)
     # context.bot.send_message(text=selected_message[1],
     #                          reply_to_message_id=selected_message[0],
@@ -1008,7 +1009,7 @@ def main():
     dp.add_handler(CommandHandler('david', get_random_message_david))
     dp.add_handler(CommandHandler('tim', get_random_message_tim))
     dp.add_handler(CommandHandler('schizo', get_random_message_schizo))
-    dp.add_handler(CommandHandler('random_david', generate_random_david))
+    dp.add_handler(CommandHandler('generate_random_david', generate_random_david))
     dp.add_handler(MessageHandler(Filters.text, check_message_david))
     RepeatedTimer(15, log_current_price_rot_per_usd)
     RepeatedTimer(60, log_current_supply)

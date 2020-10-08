@@ -263,7 +263,7 @@ def get_biz(update: Update, context: CallbackContext):
         if not threads_ids:
             meme_url = get_url_meme()
             print("sent reminder 4chan /biz/")
-            meme_caption = "There hasn't been a Rotten /biz/ thread for a while. Plz go make one https://boards.4channel.org/biz/, here's a meme, go make one."
+            meme_caption = "There hasn't been a NICE /biz/ thread for a while. Plz go make one https://boards.4channel.org/biz/, here's a meme, go make one."
             context.bot.send_photo(chat_id=chat_id, photo=meme_url, caption=meme_caption)
         else:
             context.bot.send_message(chat_id=chat_id, text=message, disable_web_page_preview=True)
@@ -353,7 +353,7 @@ def get_last_tweets(update: Update, context: CallbackContext):
         except TwythonError:
             time.sleep(0.5)
             results = query_tweets(False)
-        message = "<b>Normies are tweeting about ROT, go comment/like/RT:</b>\n"
+        message = "<b>Normies are tweeting about NICE, go comment/like/RT:</b>\n"
         rest_message = filter_tweets(results)
         if rest_message == "":
             print("empty tweets, fallback")
@@ -978,6 +978,8 @@ if __name__ == '__main__':
 commands = """
 nice - Display some $NICE price
 niceme - Give me a random meme
+twitter - Fetch tweets talking about §NICE
+biz - Get 4chan biz threads talking about $NICE
 nicefarmingguide - Guide to farming with tegrity
 supplycap - How NICE are we
 add_meme - Add a meme to the common memes folder

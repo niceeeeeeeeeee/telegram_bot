@@ -983,13 +983,28 @@ def generate_random_david(update: Update, context: CallbackContext):
     with open(david_logs_file_path) as f:
         msgs = [line.rstrip().split('///))()')[1] for line in f]
     msg = ' '.join(msgs)
-    pprint.pprint(msg)
     text_model = markovify.Text(msg)
     res = text_model.make_short_sentence(280)
     context.bot.send_message(text=res,
                              chat_id=update.message.chat_id,
                              disable_web_page_preview=True)
 
+def generate_random_all(update: Update, context: CallbackContext):
+    with open(david_logs_file_path) as f:
+        davids = [line.rstrip().split('///))()')[1] for line in f]
+    with open(tim_logs_file_path) as f:
+        tims = [line.rstrip().split('///))()')[1] for line in f]
+    with open(schizo_logs_file_path) as f:
+        schizos = [line.rstrip().split('///))()')[1] for line in f]
+    david_msg = ' '.join(davids)
+    tim_msg = ' '.join(tims)
+    schizo_msg = ' '.join(schizos)
+    all = tim_msg + david_msg + schizo_msg
+    text_model = markovify.Text(all)
+    res = text_model.make_short_sentence(280)
+    context.bot.send_message(text=res,
+                             chat_id=update.message.chat_id,
+                             disable_web_page_preview=True)
 
 def main():
     updater = Updater(TELEGRAM_KEY, use_context=True)
@@ -1014,6 +1029,7 @@ def main():
     dp.add_handler(CommandHandler('tim', get_random_message_tim))
     dp.add_handler(CommandHandler('schizo', get_random_message_schizo))
     dp.add_handler(CommandHandler('generate_random_david', generate_random_david))
+    dp.add_handler(CommandHandler('generate_random_david_tim_schizo', generate_random_david))
     dp.add_handler(MessageHandler(Filters.text, check_message_david))
     RepeatedTimer(15, log_current_price_rot_per_usd)
     RepeatedTimer(60, log_current_supply)

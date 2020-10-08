@@ -151,7 +151,7 @@ links = '<b>Website:</b> ' + create_href_str(url_website, 'rottenswap.org') + '\
     url_coinmarketcap, 'CoinMarketCap') + '\n' \
         + '<b>Social medias: </b>' + create_href_str(url_twitter_rottenswap, 'Twitter') + '\n' \
  \
-# GIT INIT
+    # GIT INIT
 repo = Repo(MEME_GIT_REPO)
 assert not repo.bare
 repo.config_reader()  # get a config reader for read-only access
@@ -989,6 +989,7 @@ def generate_random_david(update: Update, context: CallbackContext):
                              chat_id=update.message.chat_id,
                              disable_web_page_preview=True)
 
+
 def generate_random_all(update: Update, context: CallbackContext):
     with open(david_logs_file_path) as f:
         davids = [line.rstrip().split('///))()')[1] for line in f]
@@ -1005,6 +1006,29 @@ def generate_random_all(update: Update, context: CallbackContext):
     context.bot.send_message(text=res,
                              chat_id=update.message.chat_id,
                              disable_web_page_preview=True)
+
+
+def generate_random_all_stats(update: Update, context: CallbackContext):
+    with open(david_logs_file_path) as f:
+        davids = [line.rstrip().split('///))()')[1] for line in f]
+    with open(tim_logs_file_path) as f:
+        tims = [line.rstrip().split('///))()')[1] for line in f]
+    with open(schizo_logs_file_path) as f:
+        schizos = [line.rstrip().split('///))()')[1] for line in f]
+    david_msg = ' '.join(davids)
+    tim_msg = ' '.join(tims)
+    schizo_msg = ' '.join(schizos)
+    percent_david = len(david_msg) / (len(david_msg) + len(tim_msg) + len(schizo_msg))
+    percent_tim = len(tim_msg) / (len(david_msg) + len(tim_msg) + len(schizo_msg))
+    percent_schizo = len(schizo_msg) / (len(david_msg) + len(tim_msg) + len(schizo_msg))
+    text = "Percentage of message logged by user: \n" \
+           + "david: " + str(round(percent_david * 100)) + "\n" \
+           + "tim: " + str(round(percent_tim * 100)) + "\n" \
+           + "schizo: " + str(round(percent_schizo * 100))
+    context.bot.send_message(text=text,
+                             chat_id=update.message.chat_id,
+                             disable_web_page_preview=True)
+
 
 def main():
     updater = Updater(TELEGRAM_KEY, use_context=True)
@@ -1030,6 +1054,7 @@ def main():
     dp.add_handler(CommandHandler('schizo', get_random_message_schizo))
     dp.add_handler(CommandHandler('generate_random_david', generate_random_david))
     dp.add_handler(CommandHandler('generate_random_david_tim_schizo', generate_random_all))
+    dp.add_handler(CommandHandler('generate_random_david_tim_schizo_stats', generate_random_all_stats))
     dp.add_handler(MessageHandler(Filters.text, check_message_david))
     RepeatedTimer(15, log_current_price_rot_per_usd)
     RepeatedTimer(60, log_current_supply)

@@ -596,7 +596,7 @@ def get_price_nice(update: Update, context: CallbackContext):
     if str(rot_price_now_usd)[0:10] == "8559.66467":
         message = message + "Parts of Uniswap info seems down. Price might be outdated.\n"
 
-    message = "<code>(NICE) NiceToken" \
+    message = message + "<code>(NICE) NiceToken" \
               + "\nETH: Ξ" + str(derivedETH_now)[0:10] \
               + "\nUSD: $" + str(rot_price_now_usd)[0:10] \
               + "\n24H:  " + var_1d_str \

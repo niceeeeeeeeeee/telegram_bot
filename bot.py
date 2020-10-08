@@ -974,6 +974,18 @@ def get_random_message_schizo(update: Update, context: CallbackContext):
                              chat_id=update.message.chat_id,
                              disable_web_page_preview=True)
 
+
+def generate_random_david(update: Update, context: CallbackContext):
+    with open(david_logs_file_path) as f:
+        msgs = [line.rstrip().split('///))()')[1].split() for line in f]
+    pprint.pprint(msgs)
+    # selected_message = random.choice(msgs)
+    # context.bot.send_message(text=selected_message[1],
+    #                          reply_to_message_id=selected_message[0],
+    #                          chat_id=update.message.chat_id,
+    #                          disable_web_page_preview=True)
+
+
 def main():
     updater = Updater(TELEGRAM_KEY, use_context=True)
     dp = updater.dispatcher
@@ -996,6 +1008,7 @@ def main():
     dp.add_handler(CommandHandler('david', get_random_message_david))
     dp.add_handler(CommandHandler('tim', get_random_message_tim))
     dp.add_handler(CommandHandler('schizo', get_random_message_schizo))
+    dp.add_handler(CommandHandler('random_david', generate_random_david))
     dp.add_handler(MessageHandler(Filters.text, check_message_david))
     RepeatedTimer(15, log_current_price_rot_per_usd)
     RepeatedTimer(60, log_current_supply)

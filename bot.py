@@ -17,6 +17,7 @@ import shutil
 import time
 import re
 import random
+import markovify
 import locale
 import os
 import json
@@ -142,14 +143,14 @@ def create_href_str(url, message):
 links = '<b>Website:</b> ' + create_href_str(url_website, 'rottenswap.org') + '\n' \
         + '<b>Uniswap:</b> ' + create_href_str(url_uniswap_nice, "$ROT") + '\n' \
         + '<b>Pools:</b> ' + create_href_str(url_uniswap_pool_nice_eht, 'ROT-ETH') + ' ' + '\n' \
-        + '<b>Etherscan:</b> ' + create_href_str(url_etherscan_rot, '$ROT') + " " +  '\n' \
+        + '<b>Etherscan:</b> ' + create_href_str(url_etherscan_rot, '$ROT') + " " + '\n' \
         + '<b>Charts:</b> ' + create_href_str(url_astrotools_rot, 'Astrotools') + ' ' + create_href_str(
     url_dextools_rot, 'DexTools') + ' ' \
         + create_href_str(url_coingecko_rot, 'CoinGecko') + ' ' + create_href_str(url_livecoinwatch_rot,
                                                                                   'LiveCoinWatch') + ' ' + create_href_str(
     url_coinmarketcap, 'CoinMarketCap') + '\n' \
         + '<b>Social medias: </b>' + create_href_str(url_twitter_rottenswap, 'Twitter') + '\n' \
-
+ \
 # GIT INIT
 repo = Repo(MEME_GIT_REPO)
 assert not repo.bare
@@ -931,15 +932,18 @@ def check_message_david(update: Update, context: CallbackContext):
     try:
         if update.message.from_user.username == 'cupckke':
             with open(david_logs_file_path, "a") as price_file:
-                message_to_write = str(update.message.message_id) + "///))()" + str(update.message.text).replace("\n", " ") + "\n"
+                message_to_write = str(update.message.message_id) + "///))()" + str(update.message.text).replace("\n",
+                                                                                                                 " ") + "\n"
                 price_file.write(message_to_write)
         elif update.message.from_user.username == 'WNoailles':
             with open(schizo_logs_file_path, "a") as price_file:
-                message_to_write = str(update.message.message_id) + "///))()" + str(update.message.text).replace("\n", " ") + "\n"
+                message_to_write = str(update.message.message_id) + "///))()" + str(update.message.text).replace("\n",
+                                                                                                                 " ") + "\n"
                 price_file.write(message_to_write)
         elif update.message.from_user.username == 'timtemplet':
             with open(tim_logs_file_path, "a") as price_file:
-                message_to_write = str(update.message.message_id) + "///))()" + str(update.message.text).replace("\n", " ") + "\n"
+                message_to_write = str(update.message.message_id) + "///))()" + str(update.message.text).replace("\n",
+                                                                                                                 " ") + "\n"
                 price_file.write(message_to_write)
     except AttributeError:
         pass
@@ -977,14 +981,14 @@ def get_random_message_schizo(update: Update, context: CallbackContext):
 
 def generate_random_david(update: Update, context: CallbackContext):
     with open(david_logs_file_path) as f:
-        msgs = [line.rstrip().split('///))()')[1].split() for line in f]
-    all_words = [i for sub in msgs for i in sub]
-    pprint.pprint(all_words)
-    # selected_message = random.choice(msgs)
-    # context.bot.send_message(text=selected_message[1],
-    #                          reply_to_message_id=selected_message[0],
-    #                          chat_id=update.message.chat_id,
-    #                          disable_web_page_preview=True)
+        msgs = [line.rstrip().split('///))()')[1] for line in f]
+    msg = ' '.join(msgs)
+    pprint.pprint(msg)
+    text_model = markovify.Text(msg)
+    res = text_model.make_short_sentence(280)
+    context.bot.send_message(text=res,
+                             chat_id=update.message.chat_id,
+                             disable_web_page_preview=True)
 
 
 def main():

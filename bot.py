@@ -1029,7 +1029,7 @@ def main():
     dp.add_handler(CommandHandler('tim', get_random_message_tim))
     dp.add_handler(CommandHandler('schizo', get_random_message_schizo))
     dp.add_handler(CommandHandler('generate_random_david', generate_random_david))
-    dp.add_handler(CommandHandler('generate_random_david_tim_schizo', generate_random_david))
+    dp.add_handler(CommandHandler('generate_random_david_tim_schizo', generate_random_all))
     dp.add_handler(MessageHandler(Filters.text, check_message_david))
     RepeatedTimer(15, log_current_price_rot_per_usd)
     RepeatedTimer(60, log_current_supply)

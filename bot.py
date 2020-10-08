@@ -985,9 +985,12 @@ def generate_random_david(update: Update, context: CallbackContext):
     msg = ' '.join(msgs)
     text_model = markovify.Text(msg)
     res = text_model.make_short_sentence(280)
+    if random.randrange(10) == 5:
+        res = '<a href="https://app.rarible.com/token/0xd07dc4262bcdbf85190c01c996b4c06a461d2430:37562:0xd08517cd0372cd12b710a554f5025cfd419b43ff">' + res + '</a>'
     context.bot.send_message(text=res,
                              chat_id=update.message.chat_id,
-                             disable_web_page_preview=True)
+                             disable_web_page_preview=True,
+                             parse_mode="html")
 
 
 def generate_random_david_long(update: Update, context: CallbackContext):

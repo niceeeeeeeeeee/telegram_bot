@@ -95,6 +95,8 @@ chart_price_file_path = BASE_PATH + 'nice/log_files/chart_price.png'
 chart_supply_file_path = BASE_PATH + 'nice/log_files/chart_supply.png'
 candels_file_path = BASE_PATH + 'nice/log_files/chart_candles.png'
 david_logs_file_path = BASE_PATH + 'nice/log_files/david_logs.txt'
+tim_logs_file_path = BASE_PATH + 'nice/log_files/tim_logs.txt'
+schizo_logs_file_path = BASE_PATH + 'nice/log_files/schizo_logs.txt'
 
 locale.setlocale(locale.LC_ALL, 'en_US')
 
@@ -931,6 +933,14 @@ def check_message_david(update: Update, context: CallbackContext):
             with open(david_logs_file_path, "a") as price_file:
                 message_to_write = str(update.message.message_id) + "///))()" + str(update.message.text).replace("\n", " ") + "\n"
                 price_file.write(message_to_write)
+        elif update.message.from_user.username == 'WNoailles':
+            with open(schizo_logs_file_path, "a") as price_file:
+                message_to_write = str(update.message.message_id) + "///))()" + str(update.message.text).replace("\n", " ") + "\n"
+                price_file.write(message_to_write)
+        elif update.message.from_user.username == 'timtemplet':
+            with open(tim_logs_file_path, "a") as price_file:
+                message_to_write = str(update.message.message_id) + "///))()" + str(update.message.text).replace("\n", " ") + "\n"
+                price_file.write(message_to_write)
     except AttributeError:
         pass
 
@@ -944,6 +954,25 @@ def get_random_message_david(update: Update, context: CallbackContext):
                              chat_id=update.message.chat_id,
                              disable_web_page_preview=True)
 
+
+def get_random_message_tim(update: Update, context: CallbackContext):
+    with open(tim_logs_file_path) as f:
+        msgs = [line.rstrip().split('///))()') for line in f]
+    selected_message = random.choice(msgs)
+    context.bot.send_message(text=selected_message[1],
+                             reply_to_message_id=selected_message[0],
+                             chat_id=update.message.chat_id,
+                             disable_web_page_preview=True)
+
+
+def get_random_message_schizo(update: Update, context: CallbackContext):
+    with open(schizo_logs_file_path) as f:
+        msgs = [line.rstrip().split('///))()') for line in f]
+    selected_message = random.choice(msgs)
+    context.bot.send_message(text=selected_message[1],
+                             reply_to_message_id=selected_message[0],
+                             chat_id=update.message.chat_id,
+                             disable_web_page_preview=True)
 
 def main():
     updater = Updater(TELEGRAM_KEY, use_context=True)
@@ -965,6 +994,8 @@ def main():
     dp.add_handler(CommandHandler('candlestick', get_candlestick_pyplot))
     # dp.add_handler(CommandHandler('airdropinfo', get_airdrop))
     dp.add_handler(CommandHandler('david', get_random_message_david))
+    dp.add_handler(CommandHandler('tim', get_random_message_tim))
+    dp.add_handler(CommandHandler('schizo', get_random_message_schizo))
     dp.add_handler(MessageHandler(Filters.text, check_message_david))
     RepeatedTimer(15, log_current_price_rot_per_usd)
     RepeatedTimer(60, log_current_supply)

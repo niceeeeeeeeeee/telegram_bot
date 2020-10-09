@@ -1096,7 +1096,7 @@ def generate_random_legend(update: Update, context: CallbackContext):
     msg = ' '.join(msgs).replace("\n", "").replace("nigger", " ").replace("nigga", " ")
     print(msg)
     text_model = markovify.Text(msg)
-    res = text_model.make_short_sentence(400)
+    res = text_model.make_sentence()
     if res == "null" or res is None:
         context.bot.send_message(text="Not enough data to generate something. Feed me with /add_ai plzzzz.",
                                  chat_id=update.message.chat_id,

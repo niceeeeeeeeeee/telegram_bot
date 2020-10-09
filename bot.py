@@ -1030,7 +1030,9 @@ def generate_random_all_raw():
         tims = [line.rstrip().split('///))()')[1] for line in f]
     with open(schizo_logs_file_path) as f:
         schizos = [line.rstrip().split('///))()')[1] for line in f]
+    
     david_msg = ' '.join(davids)
+    pprint.pprint(david_msg)
     tim_msg = ' '.join(tims)
     schizo_msg = ' '.join(schizos)
     all_mixed = tim_msg + david_msg + schizo_msg

@@ -267,8 +267,8 @@ def get_biz(update: Update, context: CallbackContext):
         if not threads_ids:
             meme_url = get_url_meme()
             print("sent reminder 4chan /biz/")
-            custom_message = generate_random_message_raw(david_logs_file_path)
-            meme_caption = "There hasn't been a NICE /biz/ thread for a while. Plz go make one https://boards.4channel.org/biz/, here's a meme, and here's a pre-created message: \n" + custom_message 
+            custom_message = generate_random_all_raw()
+            meme_caption = "There hasn't been a NICE /biz/ thread for a while. Plz go make one https://boards.4channel.org/biz/, here's a meme, and here's a message: \n" + custom_message
             context.bot.send_photo(chat_id=chat_id, photo=meme_url, caption=meme_caption)
         else:
             context.bot.send_message(chat_id=chat_id, text=message, disable_web_page_preview=True)
@@ -1023,7 +1023,7 @@ def generate_random_gregg(update: Update, context: CallbackContext):
                              parse_mode="html")
 
 
-def generate_random_all(update: Update, context: CallbackContext):
+def generate_random_all_raw():
     with open(david_logs_file_path) as f:
         davids = [line.rstrip().split('///))()')[1] for line in f]
     with open(tim_logs_file_path) as f:
@@ -1035,7 +1035,11 @@ def generate_random_all(update: Update, context: CallbackContext):
     schizo_msg = ' '.join(schizos)
     all_mixed = tim_msg + david_msg + schizo_msg
     text_model = markovify.Text(all_mixed)
-    res = text_model.make_short_sentence(280)
+    return text_model.make_short_sentence(400)
+
+
+def generate_random_all(update: Update, context: CallbackContext):
+    res = generate_random_all_raw()
     context.bot.send_message(text=res,
                              chat_id=update.message.chat_id,
                              disable_web_page_preview=True)

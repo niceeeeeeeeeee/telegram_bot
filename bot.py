@@ -1071,19 +1071,21 @@ def add_message_to_ai(update: Update, context: CallbackContext):
     if not os.path.isfile(legends_logs_file_path):
         f = open(legends_logs_file_path, "x")
         f.close()
-    msg_to_add = update.message.text[7:]
+    msg_to_add = update.message.text[7:].replace('\n', '').lstrip()
     msg_id = update.message.message_id
 
     with open(legends_logs_file_path) as f:
         msgs = [line.rstrip() for line in f]
 
     if msg_to_add in msgs:
-        context.bot.send_message(reply_to_message_id=msg_id, text="Already stored fam", chat_id=update.message.chat_id, disable_web_page_preview=True)
+        context.bot.send_message(reply_to_message_id=msg_id, text="Already stored fam", chat_id=update.message.chat_id,
+                                 disable_web_page_preview=True)
     else:
         with open(legends_logs_file_path, "a") as fav_file:
             message_to_write = msg_to_add + "\n"
             fav_file.write(message_to_write)
-        context.bot.send_message(reply_to_message_id=msg_id, text="Added it fam.", chat_id=update.message.chat_id, disable_web_page_preview=True)
+        context.bot.send_message(reply_to_message_id=msg_id, text="Added it fam.", chat_id=update.message.chat_id,
+                                 disable_web_page_preview=True)
 
 
 def generate_random_legend(update: Update, context: CallbackContext):
@@ -1092,14 +1094,14 @@ def generate_random_legend(update: Update, context: CallbackContext):
     msg = ' '.join(msgs)
     text_model = markovify.Text(msg)
     res = text_model.make_short_sentence(400)
-    if res == "null" or res == None:
+    if res == "null" or res is None:
         context.bot.send_message(text="Not enough data to generate something. Feed me with /add_ai plzzzz.",
                                  chat_id=update.message.chat_id,
                                  disable_web_page_preview=True)
     else:
         context.bot.send_message(text=res,
-                             chat_id=update.message.chat_id,
-                             disable_web_page_preview=True)
+                                 chat_id=update.message.chat_id,
+                                 disable_web_page_preview=True)
 
 
 def main():

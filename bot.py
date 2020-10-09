@@ -525,7 +525,7 @@ def get_price_nice_raw():
         rot_per_eth_now = float(json_resp_uni['data']['tnow']['derivedETH'])
 
     rot_per_eth_7d = 0.0  # float(json_resp_uni['data']['t1']['derivedETH'])
-    rot_per_eth_1d = 0.0  # float(json_resp_uni['data']['t2']['derivedETH'])
+    rot_per_eth_1d = float(json_resp_uni['data']['t2']['derivedETH'])
     rot_per_eth_now = float(json_resp_uni['data']['tnow']['derivedETH'])
 
     eth_price_7d = float(json_resp_uni['data']['b1']['ethPrice'])
@@ -533,7 +533,7 @@ def get_price_nice_raw():
     eth_price_now = float(json_resp_uni['data']['bnow']['ethPrice'])
 
     rot_price_7d_usd = 0.0  # rot_per_eth_7d * eth_price_7d
-    rot_price_1d_usd = 0.0  # rot_per_eth_1d * eth_price_1d
+    rot_price_1d_usd = rot_per_eth_1d * eth_price_1d
     rot_price_now_usd = rot_per_eth_now * eth_price_now
 
     return (rot_per_eth_7d, rot_price_7d_usd, rot_per_eth_1d, rot_price_1d_usd, rot_per_eth_now, rot_price_now_usd)

@@ -99,6 +99,7 @@ david_logs_file_path = BASE_PATH + 'nice/log_files/david_logs.txt'
 greg_logs_file_path = BASE_PATH + 'nice/log_files/greg_logs.txt'
 tim_logs_file_path = BASE_PATH + 'nice/log_files/tim_logs.txt'
 schizo_logs_file_path = BASE_PATH + 'nice/log_files/schizo_logs.txt'
+legends_logs_file_path = BASE_PATH + 'nice/log_files/legends_logs.txt'
 
 locale.setlocale(locale.LC_ALL, 'en_US')
 
@@ -165,7 +166,7 @@ assert not repo.is_dirty()  # check the dirty state
 def format_tweet(tweet):
     tweet_id = tweet['id_str']
     url = "twitter.com/anyuser/status/" + tweet_id
-    message = tweet['text'].replace("\n", "").split('https')[0].replace('#', '').replace('@', '')
+    message = tweet['text'].replace("\n", "").split('https')[0].replace('#', '').replace('@', '').replace('$', '')
 
     time_tweet_creation = tweet['created_at']
     new_datetime = datetime.strptime(time_tweet_creation, '%a %b %d %H:%M:%S +0000 %Y')
@@ -244,8 +245,8 @@ def get_biz_threads():
                 pass
             else:
                 if re_4chan.search(com) or re_4chan.search(sub):
-                    id = thread['no']
-                    threads_ids.append((id, com, sub))
+                    thread_id = thread['no']
+                    threads_ids.append((thread_id, com, sub))
     return threads_ids
 
 
@@ -1066,6 +1067,36 @@ def generate_random_all_stats(update: Update, context: CallbackContext):
                              disable_web_page_preview=True)
 
 
+def add_message_to_ai(update: Update, context: CallbackContext):
+    if not os.path.isfile(legends_logs_file_path):
+        f = open(legends_logs_file_path, "x")
+        f.close()
+    msg_to_add = update.message.text[7:]
+    msg_id = update.message.message_id
+
+    with open(legends_logs_file_path) as f:
+        msgs = [line.rstrip() for line in f]
+
+    if msg_to_add in msgs:
+        context.bot.send_message(reply_to_message_id=msg_id, text="Already stored fam", chat_id=update.message.chat_id, disable_web_page_preview=True)
+    else:
+        with open(legends_logs_file_path, "a") as fav_file:
+            message_to_write = msg_to_add + "\n"
+            fav_file.write(message_to_write)
+        context.bot.send_message(reply_to_message_id=msg_id, text="Added it fam.", chat_id=update.message.chat_id, disable_web_page_preview=True)
+
+
+def generate_random_legend(update: Update, context: CallbackContext):
+    with open(legends_logs_file_path) as f:
+        msgs = [line.rstrip() for line in f]
+    msg = ' '.join(msgs)
+    text_model = markovify.Text(msg)
+    res = text_model.make_short_sentence(400)
+    context.bot.send_message(text=res,
+                             chat_id=update.message.chat_id,
+                             disable_web_page_preview=True)
+
+
 def main():
     updater = Updater(TELEGRAM_KEY, use_context=True)
     dp = updater.dispatcher
@@ -1092,6 +1123,8 @@ def main():
     dp.add_handler(CommandHandler('generate_random_gregg', generate_random_gregg))
     dp.add_handler(CommandHandler('generate_random_david_tim_schizo', generate_random_all))
     dp.add_handler(CommandHandler('generate_random_all_stats', generate_random_all_stats))
+    dp.add_handler(CommandHandler('add_ai', add_message_to_ai))
+    dp.add_handler(CommandHandler('generate_random_legends', generate_random_legend))
     dp.add_handler(MessageHandler(Filters.text, check_message_david))
     RepeatedTimer(15, log_current_price_rot_per_usd)
     RepeatedTimer(60, log_current_supply)
@@ -1113,4 +1146,5 @@ add_meme - Add a meme to the common memes folder
 chart - Display a (simple) price chart
 chartsupply - Display a graph of the supply cap
 candlestick - Candlestick chart 
+add_ai - add message to ai
 """

@@ -960,7 +960,7 @@ def check_message_david(update: Update, context: CallbackContext):
                 message_to_write = str(update.message.message_id) + "///))()" + str(update.message.text).replace("\n",
                                                                                                                  " ") + "\n"
                 price_file.write(message_to_write)
-        elif update.message.from_user.username == 'babygrinch69':
+        elif update.message.from_user.username == 'MahmoudM609':
             with open(mahmoud_logs_file_path, "a") as price_file:
                 message_to_write = str(update.message.message_id) + "///))()" + str(update.message.text).replace("\n",
                                                                                                                  " ") + "\n"

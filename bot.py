@@ -906,7 +906,7 @@ def get_chart_supply_pyplot(update: Update, context: CallbackContext):
             print_chart_supply(dates_pure, supply_rot)
             current_rot_str = str(supply_rot[-1])
             if simple_query:
-                caption = "Chart since the bot starting logging the supply.\nCurrent supply: \n<b>NICE:</b> <pre>" + current_rot_str + "</pre>"
+                caption = "Chart since the bot starting logging the supply.\nCurrent supply of <b>NICE:</b> <pre>" + current_rot_str[0:7] + "</pre>"
             else:
                 caption = "Supply of the last " + str(time_start) + str(
                     time_type) + ".\nCurrent supply: \n<b>NICE:</b> <pre>" + current_rot_str

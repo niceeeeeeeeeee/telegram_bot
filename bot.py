@@ -267,7 +267,8 @@ def get_biz(update: Update, context: CallbackContext):
         if not threads_ids:
             meme_url = get_url_meme()
             print("sent reminder 4chan /biz/")
-            meme_caption = "There hasn't been a NICE /biz/ thread for a while. Plz go make one https://boards.4channel.org/biz/, here's a meme, go make one."
+            custom_message = generate_random_message_raw(david_logs_file_path)
+            meme_caption = "There hasn't been a NICE /biz/ thread for a while. Plz go make one https://boards.4channel.org/biz/, here's a meme, and here's a pre-created message: \n" + custom_message 
             context.bot.send_photo(chat_id=chat_id, photo=meme_url, caption=meme_caption)
         else:
             context.bot.send_message(chat_id=chat_id, text=message, disable_web_page_preview=True)
@@ -962,6 +963,14 @@ def check_message_david(update: Update, context: CallbackContext):
         pass
 
 
+def generate_random_message_raw(filepath):
+    with open(david_logs_file_path) as f:
+        msgs = [line.rstrip().split('///))()')[1] for line in f]
+    msg = ' '.join(msgs)
+    text_model = markovify.Text(msg)
+    return text_model.make_short_sentence(400)
+
+
 def get_random_message_david(update: Update, context: CallbackContext):
     with open(david_logs_file_path) as f:
         msgs = [line.rstrip().split('///))()') for line in f]
@@ -993,11 +1002,7 @@ def get_random_message_schizo(update: Update, context: CallbackContext):
 
 
 def generate_random_david(update: Update, context: CallbackContext):
-    with open(david_logs_file_path) as f:
-        msgs = [line.rstrip().split('///))()')[1] for line in f]
-    msg = ' '.join(msgs)
-    text_model = markovify.Text(msg)
-    res = text_model.make_short_sentence(280)
+    res = generate_random_message_raw(david_logs_file_path)
     if random.randrange(10) == 5:
         res = '<a href="https://app.rarible.com/token/0xd07dc4262bcdbf85190c01c996b4c06a461d2430:37562:0xd08517cd0372cd12b710a554f5025cfd419b43ff">' + res + '</a>'
     context.bot.send_message(text=res,

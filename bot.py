@@ -1096,7 +1096,7 @@ def generate_random_legend(update: Update, context: CallbackContext):
     msg = ' '.join(msgs).replace("\n", "").replace("nigger", " ")\
         .replace("nigga", " ").replace("[", "").replace("]", "").replace('"', "").replace("'", "")
     print(msg)
-    text_model = markovify.Text(msg)
+    text_model = markovify.Text(msg, well_formed=False)
     res = text_model.make_sentence()
     print(res)
     if res == "null" or res is None:

@@ -1093,7 +1093,7 @@ def add_message_to_ai(update: Update, context: CallbackContext):
 def generate_random_legend(update: Update, context: CallbackContext):
     with open(legends_logs_file_path) as f:
         msgs = [line.rstrip() for line in f]
-    msg = ' '.join(msgs).replace("\n", "").replace("nigger", " ").replace("nigga", " ")
+    msg = ' '.join(msgs).replace("\n", "").replace("nigger", " ").replace("nigga", " ").replace("[", "").replace("]", "")
     print(msg)
     text_model = markovify.Text(msg)
     res = text_model.make_sentence()

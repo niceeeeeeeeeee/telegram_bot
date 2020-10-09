@@ -1092,7 +1092,9 @@ def generate_random_legend(update: Update, context: CallbackContext):
     with open(legends_logs_file_path) as f:
         msgs = [line.rstrip() for line in f]
     msg = ' '.join(msgs)
+    pprint.pprint(msg)
     text_model = markovify.Text(msg)
+    pprint.pprint(text_model)
     res = text_model.make_short_sentence(400)
     if res == "null" or res is None:
         context.bot.send_message(text="Not enough data to generate something. Feed me with /add_ai plzzzz.",

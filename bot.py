@@ -25,6 +25,7 @@ from bot_util import RepeatedTimer
 from images import Ocr
 import graphs_util
 import plotly.graph_objects as go
+from markovchain.text import MarkovText, ReplyMode
 import pprint
 
 # ENV FILES
@@ -1120,22 +1121,23 @@ def add_message_to_ai(update: Update, context: CallbackContext):
 
 
 def generate_random_legend(update: Update, context: CallbackContext):
-    with open(legends_logs_file_path) as f:
-        msgs = [line.rstrip() for line in f]
-    msg = ' '.join(msgs).replace("\n", "").replace("nigger", " ")\
-        .replace("nigga", " ").replace("[", "").replace("]", "").replace('"', "").replace("'", "")
-    print(msg)
-    text_model = markovify.Text(msg, well_formed=False)
-    res = text_model.make_sentence()
-    print(res)
+    markov = MarkovText()
+
+    with open(legends_logs_file_path) as fp:
+        markov.data(fp.read())
+
+    markov.data('', part=False)
+
+    res = markov()
+
     if res == "null" or res is None:
-        context.bot.send_message(text="Not enough data to generate something. Feed me with /add_ai plzzzz.",
-                                 chat_id=update.message.chat_id,
-                                 disable_web_page_preview=True)
-    else:
-        context.bot.send_message(text=res,
-                                 chat_id=update.message.chat_id,
-                                 disable_web_page_preview=True)
+            context.bot.send_message(text="Not enough data to generate something. Feed me with /add_ai plzzzz.",
+                                     chat_id=update.message.chat_id,
+                                     disable_web_page_preview=True)
+        else:
+            context.bot.send_message(text=res,
+                                     chat_id=update.message.chat_id,
+                                     disable_web_page_preview=True)
 
 
 def main():

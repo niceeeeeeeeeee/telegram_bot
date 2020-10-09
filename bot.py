@@ -1030,7 +1030,7 @@ def generate_random_all_raw():
         tims = [line.rstrip().split('///))()')[1] for line in f]
     with open(schizo_logs_file_path) as f:
         schizos = [line.rstrip().split('///))()')[1] for line in f]
-    
+
     david_msg = ' '.join(davids)
     pprint.pprint(david_msg)
     tim_msg = ' '.join(tims)
@@ -1095,8 +1095,7 @@ def generate_random_legend(update: Update, context: CallbackContext):
         msgs = [line.rstrip() for line in f]
     msg = ' '.join(msgs)
     pprint.pprint(msg)
-    values = ' '.join(msg)
-    text_model = markovify.Text(values)
+    text_model = markovify.Text(msg)
     pprint.pprint(text_model)
     res = text_model.make_short_sentence(400)
     if res == "null" or res is None:

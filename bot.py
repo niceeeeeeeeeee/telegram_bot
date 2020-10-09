@@ -1093,7 +1093,8 @@ def generate_random_legend(update: Update, context: CallbackContext):
         msgs = [line.rstrip() for line in f]
     msg = ' '.join(msgs)
     pprint.pprint(msg)
-    text_model = markovify.Text(msg)
+    values = ' '.join(msg)
+    text_model = markovify.Text(values)
     pprint.pprint(text_model)
     res = text_model.make_short_sentence(400)
     if res == "null" or res is None:

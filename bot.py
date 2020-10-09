@@ -267,8 +267,7 @@ def get_biz(update: Update, context: CallbackContext):
         if not threads_ids:
             meme_url = get_url_meme()
             print("sent reminder 4chan /biz/")
-            custom_message = generate_random_all_raw()
-            meme_caption = "There hasn't been a NICE /biz/ thread for a while. Plz go make one https://boards.4channel.org/biz/, here's a meme, and here's a message: \n" + custom_message
+            meme_caption = "There hasn't been a Rotten /biz/ thread for a while. Plz go make one https://boards.4channel.org/biz/, here's a meme, go make one."
             context.bot.send_photo(chat_id=chat_id, photo=meme_url, caption=meme_caption)
         else:
             context.bot.send_message(chat_id=chat_id, text=message, disable_web_page_preview=True)

@@ -113,7 +113,7 @@ last_time_checked_price_supply = 0
 last_time_checked_4chan = 0
 last_time_checked_twitter = 0
 
-re_4chan = re.compile(r'/NICE+/')
+re_4chan = re.compile(r'/NICE+/|NICE')
 
 twitter = Twython(APP_KEY, APP_SECRET, ACCESS_TOKEN, ACCESS_SECRET_TOKEN)
 

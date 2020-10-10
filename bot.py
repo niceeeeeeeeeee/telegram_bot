@@ -1049,7 +1049,7 @@ def generate_random_all_chat(update: Update, context: CallbackContext):
     res = text_model.make_short_sentence(280)
     if res is None or res == "null":
         markov = MarkovText()
-        with open(legends_logs_file_path) as fp:
+        with open(all_logs_file_path) as fp:
             markov.data(fp.read())
         markov.data('', part=False)
         res = markov()

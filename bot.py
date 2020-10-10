@@ -98,6 +98,7 @@ chart_supply_file_path = BASE_PATH + 'nice/log_files/chart_supply.png'
 candels_file_path = BASE_PATH + 'nice/log_files/chart_candles.png'
 david_logs_file_path = BASE_PATH + 'nice/log_files/david_logs.txt'
 mahmoud_logs_file_path = BASE_PATH + 'nice/log_files/mahmoud_logs.txt'
+all_logs_file_path = BASE_PATH + 'nice/log_files/all_logs.txt'
 greg_logs_file_path = BASE_PATH + 'nice/log_files/greg_logs.txt'
 tim_logs_file_path = BASE_PATH + 'nice/log_files/tim_logs.txt'
 schizo_logs_file_path = BASE_PATH + 'nice/log_files/schizo_logs.txt'
@@ -939,7 +940,7 @@ def get_airdrop(update: Update, context: CallbackContext):
                              disable_web_page_preview=True)
 
 
-def check_message_david(update: Update, context: CallbackContext):
+def log_message(update: Update, context: CallbackContext):
     try:
         if update.message.from_user.username == 'cupckke':
             with open(david_logs_file_path, "a") as price_file:
@@ -961,11 +962,11 @@ def check_message_david(update: Update, context: CallbackContext):
                 message_to_write = str(update.message.message_id) + "///))()" + str(update.message.text).replace("\n",
                                                                                                                  " ") + "\n"
                 price_file.write(message_to_write)
-        elif update.message.from_user.username == 'MahmoudM609':
-            with open(mahmoud_logs_file_path, "a") as price_file:
-                message_to_write = str(update.message.message_id) + "///))()" + str(update.message.text).replace("\n",
-                                                                                                                 " ") + "\n"
-                price_file.write(message_to_write)
+        
+        with open(all_logs_file_path, "a") as price_file:
+            message_to_write = str(update.message.message_id) + "///))()" + str(update.message.text).replace("\n", ".").replace("nigger", " ").replace("nigga", " ")
+            message_to_write += "\n"
+            price_file.write(message_to_write)
     except AttributeError:
         pass
 
@@ -1170,7 +1171,7 @@ def main():
     dp.add_handler(CommandHandler('generate_random_all_stats', generate_random_all_stats))
     dp.add_handler(CommandHandler('add_ai', add_message_to_ai))
     dp.add_handler(CommandHandler('generate_random_legends', generate_random_legend))
-    dp.add_handler(MessageHandler(Filters.text, check_message_david))
+    dp.add_handler(MessageHandler(Filters.text, log_message))
     RepeatedTimer(15, log_current_price_rot_per_usd)
     RepeatedTimer(60, log_current_supply)
     updater.start_polling()

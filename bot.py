@@ -962,7 +962,7 @@ def log_message(update: Update, context: CallbackContext):
                 message_to_write = str(update.message.message_id) + "///))()" + str(update.message.text).replace("\n",
                                                                                                                  " ") + "\n"
                 price_file.write(message_to_write)
-        
+
         with open(all_logs_file_path, "a") as price_file:
             message_to_write = str(update.message.message_id) + "///))()" + str(update.message.text).replace("\n", ".").replace("nigger", " ").replace("nigga", " ")
             message_to_write += "\n"
@@ -987,7 +987,6 @@ def get_random_message_mahmoud(update: Update, context: CallbackContext):
                              reply_to_message_id=selected_message[0],
                              chat_id=update.message.chat_id,
                              disable_web_page_preview=True)
-
 
 def get_random_message_david(update: Update, context: CallbackContext):
     with open(david_logs_file_path) as f:
@@ -1040,6 +1039,17 @@ def generate_random_gregg(update: Update, context: CallbackContext):
                              chat_id=update.message.chat_id,
                              disable_web_page_preview=True,
                              parse_mode="html")
+
+
+def generate_random_all_chat(update: Update, context: CallbackContext):
+    with open(all_logs_file_path) as f:
+        msgs = [line.rstrip().split('///))()')[1] for line in f]
+    msg = ' '.join(msgs)
+    text_model = markovify.Text(msg)
+    res = text_model.make_short_sentence(280)
+    context.bot.send_message(text=res,
+                             chat_id=update.message.chat_id,
+                             disable_web_page_preview=True)
 
 
 def generate_random_mahmoud(update: Update, context: CallbackContext):
@@ -1168,6 +1178,7 @@ def main():
     dp.add_handler(CommandHandler('generate_random_mahmoud', generate_random_mahmoud))
     dp.add_handler(CommandHandler('mahmoud', get_random_message_mahmoud))
     dp.add_handler(CommandHandler('generate_random_david_tim_schizo', generate_random_all))
+    dp.add_handler(CommandHandler('generate_random_all', generate_random_all_chat))
     dp.add_handler(CommandHandler('generate_random_all_stats', generate_random_all_stats))
     dp.add_handler(CommandHandler('add_ai', add_message_to_ai))
     dp.add_handler(CommandHandler('generate_random_legends', generate_random_legend))

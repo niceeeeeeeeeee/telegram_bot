@@ -895,6 +895,7 @@ def get_chart_supply_pyplot(update: Update, context: CallbackContext):
             list_time_supply = []
 
             with open(supply_file_path, newline='') as csvfile:
+                pprint.pprint(supply_file_path)
                 spamreader = csv.reader(csvfile, delimiter=' ', quotechar='|')
                 for row in spamreader:
                     try:

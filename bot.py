@@ -897,7 +897,11 @@ def get_chart_supply_pyplot(update: Update, context: CallbackContext):
             with open(supply_file_path, newline='') as csvfile:
                 spamreader = csv.reader(csvfile, delimiter=' ', quotechar='|')
                 for row in spamreader:
-                    list_time_supply.append((row[0], row[1]))
+                    try:
+                        list_time_supply.append((row[0], row[1]))
+                    except csv.Error:
+                        pass
+
 
             now = datetime.utcnow()
 

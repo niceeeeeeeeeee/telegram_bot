@@ -481,7 +481,10 @@ def delete_meme(update: Update, context: CallbackContext):
 def get_number_holder_token(token):
     url = ethexplorer_holder_base_url + token
     res = requests.get(url).json()
-    holders = res['pager']['holders']['records']
+    try:
+        holders = res['pager']['holders']['records']
+    except KeyError:
+        holders = -1
     return int(holders)
 
 
@@ -1166,7 +1169,7 @@ def main():
     dp.add_handler(CommandHandler('niceme', send_meme_to_chat))
     # dp.add_handler(CommandHandler('links', get_links))
     dp.add_handler(CommandHandler('nicefarmingguide', stake_command))
-    # dp.add_handler(CommandHandler('howtoslippage', how_to_slippage))
+    dp.add_handler(CommandHandler('howtoslippage', how_to_slippage))
     dp.add_handler(CommandHandler('supplycap', get_supply_cap))
     dp.add_handler(CommandHandler('biz', get_biz))
     dp.add_handler(CommandHandler('twitter', get_last_tweets))

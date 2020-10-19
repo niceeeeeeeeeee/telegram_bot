@@ -488,8 +488,16 @@ def get_number_holder_token(token):
     return int(holders)
 
 
-# graphql queries
+def get_ad():
+    ads_file_path = BASE_PATH + "ads/chart_ads.txt"
+    with open(ads_file_path) as f:
+        content = f.readlines()
+    # you may also want to remove whitespace characters like `\n` at the end of each line
+    content = [x.strip() for x in content]
+    return random.choice(content)
 
+
+# graphql queries
 def get_price_nice_raw():
     now = int(time.time())
 
@@ -617,6 +625,10 @@ def get_price_nice(update: Update, context: CallbackContext):
               + "\nS.  Cap = " + supply_cat_pretty \
               + "\nM.  Cap = $" + market_cap \
               + "\nHolders = " + str(holders) + "</code>"
+    if random.randrange(10) > 6:
+        ad = get_ad()
+        message = message + "\n" + ad
+    
     chat_id = update.message.chat_id
     context.bot.send_message(chat_id=chat_id, text=message, parse_mode='html')
 
@@ -863,9 +875,11 @@ def get_candlestick_pyplot(update: Update, context: CallbackContext):
             last_price = graphs_util.print_candlestick(token, t_from, t_to, candels_file_path)
 
             caption = "Price of the last " + str(time_start) + str(time_type) + " of " + token + \
-                      ".\nCurrent price: <pre>$" + str(last_price)[0:10] + "</pre>" + \
-                      '\nData from <a href="chartex.pro">chartex.pro</a>. Want this bot for your token? contact @ ' \
-                      'rotted_ben. '
+                      ".\nCurrent price: <pre>$" + str(last_price)[0:10] + "</pre>"
+          
+            if random.randrange(10) > 6:
+                ad = get_ad()
+                caption = caption + "\n" + ad
 
             context.bot.send_photo(chat_id=chat_id,
                                    photo=open(candels_file_path, 'rb'),
@@ -906,7 +920,6 @@ def get_chart_supply_pyplot(update: Update, context: CallbackContext):
                     except csv.Error:
                         pass
 
-
             now = datetime.utcnow()
 
             filtered_values = [x for x in list_time_supply if
@@ -923,6 +936,10 @@ def get_chart_supply_pyplot(update: Update, context: CallbackContext):
                 caption = "Supply of the last " + str(time_start) + str(
                     time_type) + ".\nCurrent supply: \n<b>NICE:</b> <pre>" + current_rot_str
 
+            if random.randrange(10) > 6:
+                ad = get_ad()
+                caption = caption + "\n" + ad
+            
             context.bot.send_photo(chat_id=chat_id,
                                    photo=open(chart_supply_file_path, 'rb'),
                                    caption=caption,

@@ -628,7 +628,7 @@ def get_price_nice(update: Update, context: CallbackContext):
     if random.randrange(10) > 6:
         ad = get_ad()
         message = message + "\n" + ad
-    
+
     chat_id = update.message.chat_id
     context.bot.send_message(chat_id=chat_id, text=message, parse_mode='html')
 
@@ -823,6 +823,10 @@ def get_chart_price_pyplot(update: Update, context: CallbackContext):
                 caption = "Price of the last " + str(time_start) + str(time_type) + ".\nCurrent price: <pre>$" + str(
                     price[-1])[0:10] + "</pre>"
 
+            if random.randrange(10) > 6:
+                ad = get_ad()
+                caption = caption + "\n" + ad
+
             context.bot.send_photo(chat_id=chat_id,
                                    photo=open(chart_price_file_path, 'rb'),
                                    caption=caption,
@@ -876,7 +880,7 @@ def get_candlestick_pyplot(update: Update, context: CallbackContext):
 
             caption = "Price of the last " + str(time_start) + str(time_type) + " of " + token + \
                       ".\nCurrent price: <pre>$" + str(last_price)[0:10] + "</pre>"
-          
+
             if random.randrange(10) > 6:
                 ad = get_ad()
                 caption = caption + "\n" + ad
@@ -939,7 +943,7 @@ def get_chart_supply_pyplot(update: Update, context: CallbackContext):
             if random.randrange(10) > 6:
                 ad = get_ad()
                 caption = caption + "\n" + ad
-            
+
             context.bot.send_photo(chat_id=chat_id,
                                    photo=open(chart_supply_file_path, 'rb'),
                                    caption=caption,

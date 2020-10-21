@@ -489,12 +489,7 @@ def get_number_holder_token(token):
 
 
 def get_ad():
-    ads_file_path = BASE_PATH + "ads/chart_ads.txt"
-    with open(ads_file_path) as f:
-        content = f.readlines()
-    # you may also want to remove whitespace characters like `\n` at the end of each line
-    content = [x.strip() for x in content]
-    return random.choice(content)
+    return ""
 
 
 # graphql queries

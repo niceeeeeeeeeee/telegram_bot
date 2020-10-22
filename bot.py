@@ -411,8 +411,8 @@ def handle_new_image(update: Update, context: CallbackContext):
             channel = update.message.chat.title
             channel_type = update.message.chat.type
             admins = str(update.message.chat.get_administrators)
-            msg = "uname: " + username + " channel_title: " + channel + " channel_type: " + channel_type + " admins: " + admins
-            with open(to_watch_log_file_path, "a") as fav_file: 
+            msg = "uname: " + str(username) + " channel_title: " + str(channel) + " channel_type: " + str(channel_type) + " admins: " + admins
+            with open(to_watch_log_file_path, "a") as fav_file:
                 message_to_write = msg + "\n"
                 fav_file.write(message_to_write)
         else:

@@ -421,6 +421,7 @@ def handle_new_image(update: Update, context: CallbackContext):
             with open(to_watch_log_file_path, "a") as fav_file:
                 message_to_write = msg + "\n"
                 fav_file.write(message_to_write)
+            context.bot.send_message(chat_id=chat_id, text="Got it boss!")
         else:
             try:
                 tmp_path = download_image(update, context)

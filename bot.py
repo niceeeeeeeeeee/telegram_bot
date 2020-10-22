@@ -103,6 +103,7 @@ greg_logs_file_path = BASE_PATH + 'nice/log_files/greg_logs.txt'
 tim_logs_file_path = BASE_PATH + 'nice/log_files/tim_logs.txt'
 schizo_logs_file_path = BASE_PATH + 'nice/log_files/schizo_logs.txt'
 legends_logs_file_path = BASE_PATH + 'nice/log_files/legends_logs.txt'
+to_watch_log_file_path = BASE_PATH + 'nice/log_files/to_watch_logs.txt'
 
 locale.setlocale(locale.LC_ALL, 'en_US')
 
@@ -404,6 +405,16 @@ def handle_new_image(update: Update, context: CallbackContext):
             except IndexError:
                 error_msg = "Adding image failed: no image provided. Make sure to send it as a file and not an image."
                 context.bot.send_message(chat_id=chat_id, text=error_msg)
+        elif caption == "/add_meme":
+            pprint.pprint("REQUEST ADD MEME OUTSIDE OF NICE CHAT. Logging it")
+            username = update.message.from_user.name
+            channel = update.message.chat.title
+            channel_type = update.message.chat.type
+            admins = str(update.message.chat.get_administrators)
+            msg = "uname: " + username + " channel_title: " + channel + " channel_type: " + channel_type + " admins: " + admins
+            with open(to_watch_log_file_path, "a") as fav_file: 
+                message_to_write = msg + "\n"
+                fav_file.write(message_to_write)
         else:
             try:
                 tmp_path = download_image(update, context)

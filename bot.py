@@ -389,6 +389,7 @@ def handle_new_image(update: Update, context: CallbackContext):
     chat_id = update.message.chat_id
     try:
         caption = update['message']['caption']
+        pprint.pprint(chat_id)
         if caption == "/add_meme":
             try:
                 tmp_path = download_image(update, context)

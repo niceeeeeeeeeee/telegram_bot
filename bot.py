@@ -412,8 +412,11 @@ def handle_new_image(update: Update, context: CallbackContext):
             channel_type = update.message.chat.type
             admins = update.message.chat.get_administrators
             admins_str = ""
-            for admin in admins:
-                admins_str += admin.user.name + " - "
+            try:
+                for admin in admins:
+                    admins_str += admin.user.name + " - "
+            except TypeError:
+                pass
             msg = "uname: " + str(username) + " channel_title: " + str(channel) + " channel_type: " + str(channel_type) + " admins: " + admins_str
             with open(to_watch_log_file_path, "a") as fav_file:
                 message_to_write = msg + "\n"

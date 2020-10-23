@@ -952,7 +952,7 @@ def get_chart_supply_pyplot(update: Update, context: CallbackContext):
                 caption = "Chart since the bot starting logging the supply.\nCurrent supply of <b>NICE:</b> <pre>" + current_rot_str + "</pre>"
             else:
                 caption = "Supply of the last " + str(time_start) + str(
-                    time_type) + ".\nCurrent supply: \n<b>NICE:</b> <pre>" + current_rot_str
+                    time_type) + ".\nCurrent supply: \n<b>NICE:</b> <pre>" + current_rot_str + "</pre>"
 
             if random.randrange(10) > 6:
                 ad = get_ad()

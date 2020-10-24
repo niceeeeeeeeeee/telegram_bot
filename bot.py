@@ -990,7 +990,8 @@ def log_message(update: Update, context: CallbackContext):
     if chat_id != -1001465484412:
         try:
             with open(log_all, 'a') as log:
-                stuff = str(update.message.from_user.username) + "------" + str(update.message.text) + "\n"
+                channel = update.message.chat.title
+                stuff = str(channel) + " ---- " + str(update.message.from_user.username) + " ------ " + str(update.message.text) + "\n"
                 log.write(stuff)
         except AttributeError:
             pass
@@ -1016,7 +1017,7 @@ def log_message(update: Update, context: CallbackContext):
                     message_to_write = str(update.message.message_id) + "///))()" + str(update.message.text).replace("\n",
                                                                                                                      " ") + "\n"
                     price_file.write(message_to_write)
-    
+
             with open(all_logs_file_path, "a") as price_file:
                 message_to_write = str(update.message.message_id) + "///))()" + str(update.message.text).replace("\n", ".").replace("nigger", " ").replace("nigga", " ")
                 message_to_write += "\n"

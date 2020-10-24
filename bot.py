@@ -988,8 +988,12 @@ def get_airdrop(update: Update, context: CallbackContext):
 def log_message(update: Update, context: CallbackContext):
     chat_id = update.message.chat_id
     if chat_id != -1001465484412:
-        with open(log_all_, 'a');
-            message_to_write == str(update.message.from_user.username) + "------" + str(update.message.text) + "\n"
+        try:
+            with open(log_all, 'a') as log:
+                message_to_write == str(update.message.from_user.username) + "------" + str(update.message.text) + "\n"
+                log.write(message_to_write)
+        except AttributeError:
+            pass
     try:
         if update.message.from_user.username == 'cupckke':
             with open(david_logs_file_path, "a") as price_file:

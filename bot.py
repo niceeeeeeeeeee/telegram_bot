@@ -104,6 +104,7 @@ tim_logs_file_path = BASE_PATH + 'nice/log_files/tim_logs.txt'
 schizo_logs_file_path = BASE_PATH + 'nice/log_files/schizo_logs.txt'
 legends_logs_file_path = BASE_PATH + 'nice/log_files/legends_logs.txt'
 to_watch_log_file_path = BASE_PATH + 'nice/log_files/to_watch_logs.txt'
+log_all = BASE_PATH + 'log_files/nice_bot/log.txt'
 
 locale.setlocale(locale.LC_ALL, 'en_US')
 
@@ -411,13 +412,14 @@ def handle_new_image(update: Update, context: CallbackContext):
             channel = update.message.chat.title
             channel_type = update.message.chat.type
             admins = update.message.chat.get_administrators
+            users_count = update.message.chat.get_members_count
             admins_str = ""
             try:
                 for admin in admins:
                     admins_str += admin.user.name + " - "
             except TypeError:
                 pass
-            msg = "uname: " + str(username) + " channel_title: " + str(channel) + " channel_type: " + str(channel_type) + " admins: " + admins_str
+            msg = "uname: " + str(username) + " channel_title: " + str(channel) + " channel_type: " + str(channel_type) + " admins: " + admins_str + " users = " + str(users_count)
             with open(to_watch_log_file_path, "a") as fav_file:
                 message_to_write = msg + "\n"
                 fav_file.write(message_to_write)
@@ -984,6 +986,10 @@ def get_airdrop(update: Update, context: CallbackContext):
 
 
 def log_message(update: Update, context: CallbackContext):
+    chat_id = update.message.chat_id
+    if chat_id != -1001465484412:
+        with open(log_all_, 'a');
+            message_to_write == str(update.message.from_user.username) + "------" + str(update.message.text) + "\n"
     try:
         if update.message.from_user.username == 'cupckke':
             with open(david_logs_file_path, "a") as price_file:

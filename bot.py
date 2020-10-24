@@ -990,8 +990,8 @@ def log_message(update: Update, context: CallbackContext):
     if chat_id != -1001465484412:
         try:
             with open(log_all, 'a') as log:
-                message_to_write == str(update.message.from_user.username) + "------" + str(update.message.text) + "\n"
-                log.write(message_to_write)
+                stuff == str(update.message.from_user.username) + "------" + str(update.message.text) + "\n"
+                log.write(stuff)
         except AttributeError:
             pass
     try:

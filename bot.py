@@ -406,25 +406,7 @@ def handle_new_image(update: Update, context: CallbackContext):
             except IndexError:
                 error_msg = "Adding image failed: no image provided. Make sure to send it as a file and not an image."
                 context.bot.send_message(chat_id=chat_id, text=error_msg)
-        elif caption == "/add_meme":
-            pprint.pprint("REQUEST ADD MEME OUTSIDE OF NICE CHAT. Logging it")
-            username = update.message.from_user.name
-            channel = update.message.chat.title
-            channel_type = update.message.chat.type
-            admins = update.message.chat.get_administrators
-            users_count = update.message.chat.get_members_count
-            admins_str = ""
-            try:
-                for admin in admins:
-                    admins_str += admin.user.name + " - "
-            except TypeError:
-                pass
-            msg = "uname: " + str(username) + " channel_title: " + str(channel) + " channel_type: " + str(channel_type) + " admins: " + admins_str + " users = " + str(users_count)
-            with open(to_watch_log_file_path, "a") as fav_file:
-                message_to_write = msg + "\n"
-                fav_file.write(message_to_write)
-            time.sleep(0.5)
-            context.bot.send_message(chat_id=chat_id, text="Got it boss!")
+
         else:
             try:
                 tmp_path = download_image(update, context)
@@ -987,43 +969,35 @@ def get_airdrop(update: Update, context: CallbackContext):
 
 def log_message(update: Update, context: CallbackContext):
     chat_id = update.message.chat_id
-    if chat_id != -1001465484412:
-        try:
-            with open(log_all, 'a') as log:
-                channel = update.message.chat.title
-                stuff = str(channel) + " ---- " + str(update.message.from_user.username) + " ------ " + str(update.message.text) + "\n"
-                log.write(stuff)
-        except AttributeError:
-            pass
-    else:
-        try:
-            if update.message.from_user.username == 'cupckke':
-                with open(david_logs_file_path, "a") as price_file:
-                    message_to_write = str(update.message.message_id) + "///))()" + str(update.message.text).replace("\n",
-                                                                                                                     " ") + "\n"
-                    price_file.write(message_to_write)
-            elif update.message.from_user.username == 'WNoailles':
-                with open(schizo_logs_file_path, "a") as price_file:
-                    message_to_write = str(update.message.message_id) + "///))()" + str(update.message.text).replace("\n",
-                                                                                                                     " ") + "\n"
-                    price_file.write(message_to_write)
-            elif update.message.from_user.username == 'timtemplet':
-                with open(tim_logs_file_path, "a") as price_file:
-                    message_to_write = str(update.message.message_id) + "///))()" + str(update.message.text).replace("\n",
-                                                                                                                     " ") + "\n"
-                    price_file.write(message_to_write)
-            elif update.message.from_user.username == 'FotanEnergy':
-                with open(greg_logs_file_path, "a") as price_file:
-                    message_to_write = str(update.message.message_id) + "///))()" + str(update.message.text).replace("\n",
-                                                                                                                     " ") + "\n"
-                    price_file.write(message_to_write)
 
-            with open(all_logs_file_path, "a") as price_file:
-                message_to_write = str(update.message.message_id) + "///))()" + str(update.message.text).replace("\n", ".").replace("nigger", " ").replace("nigga", " ")
-                message_to_write += "\n"
+    try:
+        if update.message.from_user.username == 'cupckke':
+            with open(david_logs_file_path, "a") as price_file:
+                message_to_write = str(update.message.message_id) + "///))()" + str(update.message.text).replace("\n",
+                                                                                                                 " ") + "\n"
                 price_file.write(message_to_write)
-        except AttributeError:
-            pass
+        elif update.message.from_user.username == 'WNoailles':
+            with open(schizo_logs_file_path, "a") as price_file:
+                message_to_write = str(update.message.message_id) + "///))()" + str(update.message.text).replace("\n",
+                                                                                                                 " ") + "\n"
+                price_file.write(message_to_write)
+        elif update.message.from_user.username == 'timtemplet':
+            with open(tim_logs_file_path, "a") as price_file:
+                message_to_write = str(update.message.message_id) + "///))()" + str(update.message.text).replace("\n",
+                                                                                                                 " ") + "\n"
+                price_file.write(message_to_write)
+        elif update.message.from_user.username == 'FotanEnergy':
+            with open(greg_logs_file_path, "a") as price_file:
+                message_to_write = str(update.message.message_id) + "///))()" + str(update.message.text).replace("\n",
+                                                                                                                 " ") + "\n"
+                price_file.write(message_to_write)
+
+        with open(all_logs_file_path, "a") as price_file:
+            message_to_write = str(update.message.message_id) + "///))()" + str(update.message.text).replace("\n", ".").replace("nigger", " ").replace("nigga", " ")
+            message_to_write += "\n"
+            price_file.write(message_to_write)
+    except AttributeError:
+        pass
 
 
 def generate_random_message_raw(filepath):

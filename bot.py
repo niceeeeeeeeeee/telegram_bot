@@ -1022,7 +1022,6 @@ def get_random_message_david(update: Update, context: CallbackContext):
         msgs = [line.rstrip().split('///))()') for line in f]
     selected_message = random.choice(msgs)
     context.bot.send_message(text=selected_message[1],
-                             reply_to_message_id=selected_message[0],
                              chat_id=update.message.chat_id,
                              disable_web_page_preview=True)
 
